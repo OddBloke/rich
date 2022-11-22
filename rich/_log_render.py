@@ -44,13 +44,15 @@ class LogRender:
         from .table import Table
 
         output = Table.grid(padding=(0, 1))
-        output.expand = True
+        output.expand = False
         if self.show_time:
             output.add_column(style="log.time")
         if self.show_level:
             output.add_column(style="log.level", width=self.level_width)
         output.add_column(ratio=1, style="log.message", overflow="fold")
         if self.show_path and path:
+            # Set expand=True so the path cell is right-aligned
+            output.expand = True
             output.add_column(style="log.path")
         row: List["RenderableType"] = []
         if self.show_time:
